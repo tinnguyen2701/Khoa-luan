@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { SEARCH_REQUEST } from './ducks';
-import { VISIBLE_MODAL, SIGN_OUT_USER } from '../../ducks';
+import { SIGN_OUT_USER } from '../../ducks';
 
 const Nav = styled.div`
   display: flex;
@@ -47,10 +47,6 @@ const Nav = styled.div`
       border: 1px solid steelblue;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      width: 200px;
-      transition: 200ms all;
-    }
-    input:focus {
       width: 300px;
     }
     button {
@@ -101,10 +97,6 @@ const searchPosts = ({ listSearch, isVisibleLoading, currentUser, dispatch, hist
     history.push('/List-Search');
   };
 
-  const onLoginHandler = () => {
-    dispatch({ type: VISIBLE_MODAL });
-  };
-
   const onSignOutHandler = () => {
     window.localStorage.removeItem('username');
     dispatch({ type: SIGN_OUT_USER });
@@ -134,12 +126,12 @@ const searchPosts = ({ listSearch, isVisibleLoading, currentUser, dispatch, hist
         <span>
           {currentUser ? (
             <span>
-              <button type="button" className="button-avatar" onClick={() => onLoginHandler()}>
+              <button type="button" className="button-avatar" onClick={() => {}}>
                 <i className="fa fa-envira" /> {currentUser.username}
               </button>
             </span>
           ) : (
-            <button type="button" onClick={() => onLoginHandler()}>
+            <button type="button" onClick={() => {}}>
               LOGIN
             </button>
           )}
@@ -153,7 +145,7 @@ const searchPosts = ({ listSearch, isVisibleLoading, currentUser, dispatch, hist
         </span>
       </Nav>
       <Div>
-        Danh Sách Tìm kiếm:
+        List Post found:
         {listSearch &&
           listSearch.length > 0 &&
           listSearch.map((item, index) => (

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
   REGISTER_REQUEST,
-  LOGIN_REQUEST,
   LOGIN_USER_REQUEST,
   LIKE_POST_USER_REQUEST,
   UN_LIKE_POST_USER_REQUEST,
@@ -184,8 +183,10 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
   const [visibleResult, setVisibleResult] = useState(false);
   const [answer, setAnswer] = useState('');
   const [yourAnswer, setYourAnswer] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [usernameRegister, setUsernameRegister] = useState('');
+  const [passwordRegister, setPasswordRegister] = useState('');
+  const [usernameLogin, setUsernameLogin] = useState('');
+  const [passwordLogin, setPasswordLogin] = useState('');
   const [comment, setComment] = useState('');
 
   const onTestHandler = answer => {
@@ -259,18 +260,26 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
 
   const onRegister = e => {
     e.preventDefault();
-    dispatch({ type: REGISTER_REQUEST, payload: { username, password } });
+    dispatch({
+      type: REGISTER_REQUEST,
+      payload: { username: usernameRegister, password: passwordRegister },
+    });
   };
 
   const onLogin = e => {
     e.preventDefault();
-    dispatch({ type: LOGIN_USER_REQUEST, payload: { username, password } });
+    dispatch({
+      type: LOGIN_USER_REQUEST,
+      payload: { username: usernameLogin, password: passwordLogin },
+    });
   };
 
   const closeVisibleRegisterHandler = () => {
     dispatch({ type: VISIBLE_MODAL });
-    setUsername('');
-    setPassword('');
+    setUsernameLogin('');
+    setUsernameRegister('');
+    setPasswordLogin('');
+    setPasswordRegister('');
   };
 
   return (
@@ -441,9 +450,13 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
             <form onSubmit={e => onRegister(e)}>
               <p style={{ color: 'steelblue', fontSize: '35px' }}>R E G I S T E R</p>
               <span>Username</span>
-              <input value={username} onChange={e => setUsername(e.target.value)} />
+              <input value={usernameRegister} onChange={e => setUsernameRegister(e.target.value)} />
               <span>Password</span>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              <input
+                type="password"
+                value={passwordRegister}
+                onChange={e => setPasswordRegister(e.target.value)}
+              />
               <button type="submit">Register</button>
             </form>
           </div>
@@ -451,9 +464,13 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
             <form onSubmit={e => onLogin(e)}>
               <p style={{ color: 'steelblue', fontSize: '35px' }}>L O G I N</p>
               <span>Username</span>
-              <input value={username} onChange={e => setUsername(e.target.value)} />
+              <input value={usernameLogin} onChange={e => setUsernameLogin(e.target.value)} />
               <span>Password</span>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              <input
+                type="password"
+                value={passwordLogin}
+                onChange={e => setPasswordLogin(e.target.value)}
+              />
               <button type="submit">Login</button>
             </form>
           </div>

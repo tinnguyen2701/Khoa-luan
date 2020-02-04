@@ -49,10 +49,6 @@ const Nav = styled.div`
       border: 1px solid steelblue;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      width: 200px;
-      transition: 200ms all;
-    }
-    input:focus {
       width: 300px;
     }
     button {
