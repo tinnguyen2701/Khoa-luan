@@ -44,6 +44,10 @@ export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
 export const DELETE_COMMENT_RESPONSE = 'DELETE_COMMENT_RESPONSE';
 export const DELETE_COMMENT_ERROR = 'DELETE_COMMENT_ERROR';
 
+export const CHECK_ANSWER_REQUEST = 'CHECK_ANSWER_REQUEST';
+export const CHECK_ANSWER_RESPONSE = 'CHECK_ANSWER_RESPONSE';
+export const CHECK_ANSWER_ERROR = 'CHECK_ANSWER_ERROR';
+
 /* all post navigation */
 function* requestGetAllPostNavigation(action) {
   try {
@@ -243,3 +247,24 @@ function* watchDeleteCommentPostRequest() {
   yield takeLatest(DELETE_COMMENT_REQUEST, requestDeleteCommentPost);
 }
 export const deleteCommentPostSaga = [fork(watchDeleteCommentPostRequest)];
+
+/* check your answer */
+function* requestCheckAnswerPost(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_MAIN_URL}api/posts/checkAnswer`,
+      action.payload,
+    );
+    if (response.status === 200) {
+      yield put(createAction(CHECK_ANSWER_RESPONSE, response.data));
+    }
+  } catch (error) {
+    logger.logError('khong the check answer');
+  }
+}
+function* watchCheckAnswerPostRequest() {
+  yield takeLatest(CHECK_ANSWER_REQUEST, requestCheckAnswerPost);
+}
+export const CheckAnswerPostSaga = [fork(watchCheckAnswerPostRequest)];

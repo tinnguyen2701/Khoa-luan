@@ -12,6 +12,7 @@ import {
   SearchPostsReducer as searchPosts,
   currentUserReducer as currentUser,
   visibleModalReducer as visibleModal,
+  resultAnswerReducer as resultAnswer,
 } from 'ducks';
 import { loginSaga, loginReducer as login } from './components/Login/ducks';
 import {
@@ -31,6 +32,7 @@ import {
   unLikePostSaga,
   addCommentPostSaga,
   deleteCommentPostSaga,
+  CheckAnswerPostSaga,
 } from './components/Home/ducks';
 
 export const rootReducer = combineReducers({
@@ -45,6 +47,7 @@ export const rootReducer = combineReducers({
   searchPosts,
   currentUser,
   visibleModal,
+  resultAnswer,
 });
 
 const rootSaga = function* rootSaga() {
@@ -64,6 +67,7 @@ const rootSaga = function* rootSaga() {
     ...unLikePostSaga,
     ...addCommentPostSaga,
     ...deleteCommentPostSaga,
+    ...CheckAnswerPostSaga,
   ]);
 };
 

@@ -22,6 +22,7 @@ import {
   UN_LIKE_POST_USER_RESPONSE,
   ADD_COMMENT_RESPONSE,
   DELETE_COMMENT_RESPONSE,
+  CHECK_ANSWER_RESPONSE,
 } from './components/Home/ducks';
 
 export const UPDATE_FRAME_REQUEST = 'UPDATE_FRAME_REQUEST';
@@ -127,6 +128,14 @@ const searchPostsActionHandler = {
   },
 };
 export const SearchPostsReducer = createReducer(searchPosts, searchPostsActionHandler);
+
+const resultAnswer = null;
+const resultAnswerActionHandler = {
+  [CHECK_ANSWER_RESPONSE]: (state, action) => {
+    return action.payload;
+  },
+};
+export const resultAnswerReducer = createReducer(resultAnswer, resultAnswerActionHandler);
 
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 const currentUserInit = null;

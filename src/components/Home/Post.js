@@ -9,6 +9,7 @@ import {
   UN_LIKE_POST_USER_REQUEST,
   ADD_COMMENT_REQUEST,
   DELETE_COMMENT_REQUEST,
+  CHECK_ANSWER_REQUEST,
 } from './ducks';
 import { VISIBLE_MODAL } from '../../ducks';
 
@@ -178,9 +179,10 @@ const ListComment = styled.div`
   }
 `;
 
-const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) => {
+const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer, dispatch }) => {
   const [visibleTest, setVisibleTest] = useState(false);
   const [visibleResult, setVisibleResult] = useState(false);
+  const [visibleAnswer, setVisibleAnswer] = useState(false);
   const [answer, setAnswer] = useState('');
   const [yourAnswer, setYourAnswer] = useState('');
   const [usernameRegister, setUsernameRegister] = useState('');
@@ -189,19 +191,45 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
   const [passwordLogin, setPasswordLogin] = useState('');
   const [comment, setComment] = useState('');
 
+  const getString = function(o) {
+    if (o) {
+      if (typeof o == 'string') {
+        return o;
+      } else {
+        return JSON.stringify(o, null, 4);
+      }
+    } else {
+      return null;
+    }
+  };
+
+  const commandConsole = Arr => {
+    let t = '';
+    Arr.map(item => (t += getString(item) + '\n'));
+    return t;
+  };
+
   const onTestHandler = answer => {
     setVisibleTest(true);
     setAnswer(answer);
     setVisibleResult(false);
   };
 
-  const checkAnswerHandler = () => {
+  const RunCodeHandler = () => {
+    dispatch({ type: CHECK_ANSWER_REQUEST, payload: { strCommand: yourAnswer } });
+    setVisibleAnswer(false);
     setVisibleResult(true);
+  };
+
+  const checkAnswerHandler = () => {
+    setVisibleResult(false);
+    setVisibleAnswer(true);
   };
 
   const closeHandler = () => {
     setVisibleTest(false);
     setVisibleResult(false);
+    setVisibleAnswer(false);
     setYourAnswer('');
   };
 
@@ -312,21 +340,46 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, dispatch }) =
             <div>
               <p style={{ fontSize: '24px' }}>Test Code</p>
               <textarea
-                className="your-answer"
+                className="your-answer test-code-console"
                 value={yourAnswer}
                 onChange={e => setYourAnswer(e.target.value)}
               />
+              <button className="button-test" type="button" onClick={() => RunCodeHandler()}>
+                Run >>
+              </button>
               <button className="button-test" type="button" onClick={() => checkAnswerHandler()}>
                 Check Answer
               </button>
               <button className="button-test" type="button" onClick={() => closeHandler()}>
                 Close
               </button>
-              {visibleResult && <textarea className="answer" readOnly value={answer} />}
+              {resultAnswer && resultAnswer.isTrue && (
+                <span style={{ color: '#39de34' }}>
+                  <i className="fa fa-check" /> Correct
+                </span>
+              )}
+              {resultAnswer && resultAnswer.isTrue == false && (
+                <span style={{ color: '#ee1a26' }}>
+                  <i className="fa fa-close" /> Incorrect
+                </span>
+              )}
+              {visibleResult && (
+                <div>
+                  {resultAnswer && resultAnswer.resultCommand.length > 0 && (
+                    <textarea
+                      className="answer"
+                      readOnly
+                      value={commandConsole(resultAnswer.resultCommand)}
+                    />
+                  )}
+                </div>
+              )}
+              {visibleAnswer && <textarea className="answer" readOnly value={answer} />}
             </div>
           )}
           <Favorite>
             <span>
+              0
               <button type="button" onClick={() => LikePostHandler(post._id)}>
                 <FavoriteIcon
                   className="fa fa-thumbs-o-up"
@@ -492,4 +545,5 @@ export default connect(state => ({
   isVisibleLoading: state.isVisibleLoading,
   visibleModal: state.visibleModal,
   currentUser: state.currentUser,
+  resultAnswer: state.resultAnswer,
 }))(Post);

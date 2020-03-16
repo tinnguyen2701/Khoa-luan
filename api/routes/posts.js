@@ -4,6 +4,8 @@ const passport = require('passport');
 const Overview = require('../models/overviews');
 const Manual = require('../models/manuals');
 const logger = require('../utils/logger');
+const commandExecute = require('./commandExecute');
+// const Student = require('../models/student');
 
 postRouter.get('/', async (req, res) => {
   const page = req.query.item;
@@ -193,6 +195,11 @@ postRouter.get('/search', async (req, res) => {
       return res.sendStatus(500);
     });
   return res.status(200).send(postsSearch);
+});
+
+postRouter.post('/checkAnswer', async (req, res) => {
+  var result = await commandExecute(req.body.strCommand);
+  return res.status(200).send(result);
 });
 
 module.exports = postRouter;
