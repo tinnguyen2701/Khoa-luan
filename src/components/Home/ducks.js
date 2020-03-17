@@ -130,6 +130,7 @@ function* requestRegisterUser(action) {
     );
     if (response.status === 200) {
       yield put(createAction(REGISTER_RESPONSE, response.data));
+      window.localStorage.setItem('username', response.data.username);
       yield put(createAction(VISIBLE_MODAL));
     }
   } catch (error) {

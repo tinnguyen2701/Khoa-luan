@@ -75,11 +75,31 @@ const Register = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  div:nth-child(1) {
+    background: -webkit-linear-gradient(top, #7579ff, #b224ef);
+    flex: 1;
+
+    button:hover {
+      background: -webkit-linear-gradient(bottom, #7579ff, #b224ef);
+      color: white;
+    }
+  }
+
+  div:nth-child(2) {
+    background: -webkit-linear-gradient(bottom, #ff7575, #b224ef);
+    flex: 1;
+
+    button:hover {
+      background: -webkit-linear-gradient(bottom, #ff7575, #b224ef);
+      color: white;
+    }
+  }
 
   .button-close {
     position: absolute;
@@ -101,7 +121,7 @@ const Register = styled.div`
       margin: 10px 0;
     }
     input {
-      padding: 5px;
+      padding: 10px 5px;
       width: 140%;
       border-radius: 5px;
       border: none;
@@ -109,10 +129,12 @@ const Register = styled.div`
     button {
       margin-top: 40px;
       width: 100px;
-      padding: 5px;
+      padding: 9px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+      transition: 350ms all;
     }
   }
 `;
@@ -501,10 +523,14 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
         <Register>
           <div>
             <form onSubmit={e => onRegister(e)}>
-              <p style={{ color: 'steelblue', fontSize: '35px' }}>R E G I S T E R</p>
-              <span>Username</span>
+              <p style={{ color: 'white', fontSize: '35px' }}>R E G I S T E R</p>
+              <span>
+                <i className="fa fa-user-circle-o" /> Username
+              </span>
               <input value={usernameRegister} onChange={e => setUsernameRegister(e.target.value)} />
-              <span>Password</span>
+              <span>
+                <i className="fa fa-lock" /> Password
+              </span>
               <input
                 type="password"
                 value={passwordRegister}
@@ -515,10 +541,14 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
           </div>
           <div>
             <form onSubmit={e => onLogin(e)}>
-              <p style={{ color: 'steelblue', fontSize: '35px' }}>L O G I N</p>
-              <span>Username</span>
+              <p style={{ color: 'white', fontSize: '35px' }}>L O G I N</p>
+              <span>
+                <i className="fa fa-user-circle-o" /> Username
+              </span>
               <input value={usernameLogin} onChange={e => setUsernameLogin(e.target.value)} />
-              <span>Password</span>
+              <span>
+                <i className="fa fa-lock" /> Password
+              </span>
               <input
                 type="password"
                 value={passwordLogin}
@@ -532,7 +562,7 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
             type="button"
             onClick={() => closeVisibleRegisterHandler()}
           >
-            X
+            <i className="fa fa-close" />
           </button>
         </Register>
       )}

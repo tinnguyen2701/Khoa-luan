@@ -41,17 +41,36 @@ const Nav = styled.div`
     }
   }
 
-  span {
+  .search-area {
+    border-bottom: 1px solid #bbb;
     input {
-      padding: 5px 10px;
-      border: 1px solid steelblue;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      border: none;
+      background: none;
+      color: #bbb;
+      font-size: 17px;
+      outline: none;
+      width: 200px;
+      transition: 250ms all;
+    }
+
+    input:focus {
       width: 300px;
     }
     button {
       padding: 5px;
-      color: steelblue;
+      color: #bbb;
+      outline: none;
+    }
+  }
+
+  .user-area {
+    button {
+      background: -webkit-linear-gradient(bottom, #ff7575, #b224ef);
+      border: none;
+      color: white;
+      border-radius: 5px;
+      outline: none;
+      padding: 7px 14px;
     }
 
     .button-avatar {
@@ -112,22 +131,26 @@ const searchPosts = ({ listSearch, isVisibleLoading, currentUser, dispatch, hist
         <button type="button" onClick={() => history.push('/Manuals')}>
           MANUAL DOCUMENT
         </button>
-        <span>
+        <span className="search-area">
           <input
             type="text"
-            placeholder="Search.."
+            placeholder="What're we looking for ?"
             value={keySearch}
             onChange={e => setKeySearch(e.target.value)}
           />
-          <button type="button" onClick={() => onSearchHandler()}>
+          <button
+            type="button"
+            style={{ background: 'none', border: 'none', fontSize: '17px' }}
+            onClick={() => onSearchHandler()}
+          >
             <i className="fa fa-search" aria-hidden="true" />
           </button>
         </span>
-        <span>
+        <span className="user-area">
           {currentUser ? (
             <span>
               <button type="button" className="button-avatar" onClick={() => {}}>
-                <i className="fa fa-envira" /> {currentUser.username}
+                <i className="fa fa-user" /> {currentUser.username}
               </button>
             </span>
           ) : (
