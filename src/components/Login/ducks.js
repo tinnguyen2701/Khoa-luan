@@ -23,6 +23,7 @@ function* requestLogin(action) {
     if (response.data.success) {
       yield put(createAction(LOGIN_RESPONSE));
       window.localStorage.setItem('JWT', response.data.token);
+      window.localStorage.setItem('username', 'Admin');
       history.push('/dashboard');
     }
   } catch (error) {

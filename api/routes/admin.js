@@ -3,14 +3,14 @@ const adminRouter = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const Account = require('../models/account');
+const User = require('../models/users');
 
 adminRouter.post('/login', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) return res.sendStatus(403);
 
-  await Account.findOne({ username }).then(user => {
-    if (!user) return res.sendStatus(403);
+  await User.findOne({ username }).then(user => {
+    if (!user || !user.isAdmin) return res.sendStatus(403);
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -32,9 +32,9 @@ adminRouter.post('/login', async (req, res) => {
 
 adminRouter.post('/currentUser', async (req, res) => {
   await jwt.verify(req.body.token, process.env.JWT_SECRET, async function(err, decoded) {
-    await Account.find({})
+    await User.findOne({ isAdmin: true })
       .then(account => {
-        if (account[0]._id.equals(decoded.id)) {
+        if (account._id.equals(decoded.id)) {
           if (Date.now() >= decoded.exp * 1000) {
             return res.sendStatus(304);
           }

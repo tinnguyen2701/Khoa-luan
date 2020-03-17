@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   > div > button {
     cursor: pointer;
     float: right;
-    background: rgb(44, 166, 239);
+    background: -webkit-linear-gradient(bottom, #ff7575, #b224ef);
     border: none;
     padding: 5px;
     color: white;

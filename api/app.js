@@ -11,7 +11,7 @@ const admin = require('./routes/admin');
 const posts = require('./routes/posts');
 const users = require('./routes/users');
 const postsNavigation = require('./routes/postsNavigation');
-// const Account = require('./models/account');
+// const User = require('./models/users');
 // var http = require('http');
 
 const app = express();
@@ -29,15 +29,16 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // bcrypt.genSalt(10, function(err, salt) {
-//   bcrypt.hash('tkstudio2450542', salt, function(err, hash) {
-//     const newUser = new Account({
-//       username: 'tkstudio',
+//   bcrypt.hash(process.env.PASSWORD, salt, function(err, hash) {
+//     const newUser = new User({
+//       username: process.env.USERNAME,
 //       password: hash,
+//       isAdmin: true,
 //     });
 
 //     newUser
 //       .save()
-//       .then(newUser => console.log('ok'))
+//       .then(() => console.log('ok'))
 //       .catch(err => console.log('can not save user', err));
 //   });
 // });

@@ -25,7 +25,9 @@ const Frame = ({ tabVisible }) => {
     );
   return (
     <Wrapper>
-      <h1>T K ____ S T U D I O ____ A R T</h1>
+      <h1>
+        A D M I N <span> _ </span> P A G E
+      </h1>
     </Wrapper>
   );
 };

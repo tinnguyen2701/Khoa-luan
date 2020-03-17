@@ -4,7 +4,7 @@ const passport = require('passport');
 const Overview = require('../models/overviews');
 const Manual = require('../models/manuals');
 const logger = require('../utils/logger');
-const commandExecute = require('./commandExecute');
+const commandExecute = require('../helper/commandExecute');
 // const Student = require('../models/student');
 
 postRouter.get('/', async (req, res) => {
