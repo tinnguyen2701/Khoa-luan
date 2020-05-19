@@ -25,6 +25,11 @@ const Div = styled.div`
     width: 100%;
     height: 150px;
     padding: 10px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
   }
 
   .button-test {
@@ -401,7 +406,6 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
           )}
           <Favorite>
             <span>
-              0
               <button type="button" onClick={() => LikePostHandler(post._id)}>
                 <FavoriteIcon
                   className="fa fa-thumbs-o-up"
@@ -441,8 +445,8 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
               {post.comments.length > 0 &&
                 post.comments.map((comment, index) => (
                   <div key={index.toString()}>
-                    <i className="fa fa-envira" />
-                    <span className="span-name">{comment.username}</span>
+                    <i className="fa fa-user" />
+                    <span className="span-name"> {comment.username}</span>
                     <span className="span-time">
                       {new Date(comment.updated_at).toLocaleString()}
                     </span>
