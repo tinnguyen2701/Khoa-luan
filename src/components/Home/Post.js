@@ -414,7 +414,7 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
               </button>
             </span>
             <span>
-              {currentUser && post.favorites.indexOf(currentUser.username) > -1 && (
+              {/* {currentUser && post.favorites.indexOf(currentUser.username) > -1 && (
                 <span>Your liked and </span>
               )}
               {currentUser && post.favorites.indexOf(currentUser.username) > -1 && (
@@ -428,9 +428,26 @@ const Post = ({ post, isVisibleLoading, visibleModal, currentUser, resultAnswer,
                 <span>another persons </span>
               ) : (
                 <span>person </span>
-              )}{' '}
-              like this post
+              )}{' '} */}
+              {!currentUser && post.favorites.length > 1 &&
+              <span>{post.favorites.length} persons</span>}
+              {!currentUser && post.favorites.length === 1 &&
+              <span>1 person</span>}
+              {currentUser && post.favorites.indexOf(currentUser.username) > -1 && post.favorites.length === 1 &&
+              <span>You</span>}
+              {currentUser && post.favorites.indexOf(currentUser.username) < 0 && post.favorites.length === 1 &&
+              <span>1 person</span>}
+              {currentUser && post.favorites.indexOf(currentUser.username) < 0 && post.favorites.length > 1 &&
+              <span>{post.favorites.length} persons</span>}
+              {currentUser && post.favorites.indexOf(currentUser.username) > -1 && post.favorites.length === 2 &&
+              <span>You and 1 person another</span>}
+{currentUser && post.favorites.indexOf(currentUser.username) > -1 && post.favorites.length > 2 &&
+              <span>You and {post.favorites.length - 1} persons another</span>}
+              {post.favorites.length === 0 &&
+              <span>No anyone</span>}
+               <span> liked this post</span>
             </span>
+
           </Favorite>
           <Comment>
             <form onSubmit={e => onAddCommentHandler(e, post._id)}>

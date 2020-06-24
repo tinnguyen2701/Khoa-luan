@@ -145,6 +145,7 @@ const About = ({ ListPostAboutNavigation = [], currentUser, dispatch, history })
 
   const onSignOutHandler = () => {
     window.localStorage.removeItem('username');
+    window.localStorage.removeItem('JWT');
     dispatch({ type: SIGN_OUT_USER });
   };
 

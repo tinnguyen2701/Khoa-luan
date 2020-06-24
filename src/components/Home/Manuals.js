@@ -144,6 +144,7 @@ const Manuals = ({ ListPostDocumentNavigation = [], currentUser, dispatch, histo
 
   const onSignOutHandler = () => {
     window.localStorage.removeItem('username');
+    window.localStorage.removeItem('JWT');
     dispatch({ type: SIGN_OUT_USER });
   };
 

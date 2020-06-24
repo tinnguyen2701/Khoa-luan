@@ -40,7 +40,7 @@ export const modalReducer = createReducer(initModal, modalActionHandler);
 const postAboutInit = [];
 const postAboutActionHandler = {
   [GET_ALL_POST_ABOUT_RESPONSE]: (state, action) => action.payload,
-  [ADD_POST_ABOUT_RESPONSE]: (state, action) => [...state, action.payload],
+  [ADD_POST_ABOUT_RESPONSE]: (state, action) => [action.payload, ...state],
   [UPDATE_POST_ABOUT_RESPONSE]: (state, action) => {
     return state.map(item => {
       if (item._id === action.payload.id) {
@@ -58,7 +58,7 @@ export const postAboutReducer = createReducer(postAboutInit, postAboutActionHand
 const postDocumentInit = [];
 const postDocumentActionHandler = {
   [GET_ALL_POST_DOCUMENT_RESPONSE]: (state, action) => action.payload,
-  [ADD_POST_DOCUMENT_RESPONSE]: (state, action) => [...state, action.payload],
+  [ADD_POST_DOCUMENT_RESPONSE]: (state, action) => [action.payload, ...state],
   [UPDATE_POST_DOCUMENT_RESPONSE]: (state, action) => {
     return state.map(item => {
       if (item._id === action.payload.id) {
