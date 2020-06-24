@@ -101,6 +101,7 @@ const Div = styled.div`
 
   > div {
     margin-left: 25%;
+    width: 75%;
   }
 `;
 
